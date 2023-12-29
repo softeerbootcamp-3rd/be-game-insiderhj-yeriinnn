@@ -14,12 +14,6 @@ public class Player {
         cards.add(cardValue);
         totalSum += cardValue;
         totalSum %= 10;
-
-        // 세 번째 카드까지의 합을 총합에 반영
-        if (cards.size() <= 3) {
-            totalSum += cardValue;
-            totalSum %= 10;
-        }
     }
 
     public int getTotalSum() {

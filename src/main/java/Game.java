@@ -17,7 +17,7 @@ public class Game {
         banker.receiveCard(drawCard());
 
         // 내추럴
-        if (player.getTotalSum() >= 8 || banker.getTotalSum() >= 9) {
+        if (player.getTotalSum() >= 8 || banker.getTotalSum() >= 8) {
             System.out.println("카드의 합이 8 이상이므로 내추럴입니다.");
             return gameResult(player, banker);
         }
