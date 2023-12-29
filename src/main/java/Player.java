@@ -14,14 +14,23 @@ public class Player {
         cards.add(cardValue);
         totalSum += cardValue;
         totalSum %= 10;
+
+        // 세 번째 카드까지의 합을 총합에 반영
+        if (cards.size() <= 3) {
+            totalSum += cardValue;
+            totalSum %= 10;
+        }
     }
 
     public int getTotalSum() {
         return totalSum;
     }
 
-    public void showCards() {
-        System.out.println("플레이어의 카드 합: " + cards);
+    public int getThirdCardValue() {
+        if (cards.size() >= 3) {
+            return cards.get(2); // 0번째부터 시작하므로 세 번째 카드는 인덱스 2에 위치
+        } else {
+            return -1; // 카드가 세 장 미만일 때는 예외 처리 가능하도록 -1 반환
+        }
     }
 }
-
