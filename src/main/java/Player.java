@@ -13,6 +13,7 @@ public class Player {
     public void receiveCard(int cardValue) {
         cards.add(cardValue);
         totalSum += cardValue;
+        totalSum %= 10;
     }
 
     public int getTotalSum() {

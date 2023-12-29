@@ -21,6 +21,9 @@ public class Main {
             case 1:
                 System.out.println("뱅커 승!");
                 break;
+            case 2:
+                System.out.println("비겼띠");
+                break;
         }
     }
 
@@ -30,24 +33,51 @@ public class Main {
         Player banker = new Player();
 
         System.out.println("플레이어가 드로우 중입니다...");
-        player_value += getInt();
-        player_value += getInt();
+        player.receiveCard(drawCard());
+        player.receiveCard(drawCard());
 
         System.out.println("뱅커가 드로우 중입니다...");
-        banker_value += getInt();
-        banker_value += getInt();
+        banker.receiveCard(drawCard());
+        banker.receiveCard(drawCard());
 
         // 내추럴
-        if (score(player_value) >= 8 || score(banker_value) >= 9) {
-            return player_value > banker_value ? 0 : 1;
+        if (player.getTotalSum() >= 8 || banker.getTotalSum() >= 9) {
+            System.out.println("카드의 합이 8 이상이므로 내추럴입니다.");
+            return gameResult(player, banker);
         }
 
-        return 0;
+        System.out.println("내추럴이 아니기 때문에 진행합니다.");
+        System.out.println("플레이어의 차례...");
+
+        if (player.getTotalSum() == 6 || player.getTotalSum() == 7) {
+            System.out.println("스탠드, 카드를 받지 않습니다.");
+            System.out.println("뱅커의 차례...");
+
+            if (banker.getTotalSum() == 6 || banker.getTotalSum() == 7) {
+                System.out.println("스탠드, 카드를 받지 않습니다.");
+            } else {
+                System.out.println("뱅커가 드로우 중입니다...");
+                banker.receiveCard(drawCard());
+            }
+
+        } else {
+
+            System.out.println("플레이어가 드로우 중입니다...");
+            player.receiveCard(drawCard());
+
+            System.out.println("뱅커의 차례...");
+//            if (GameUtils.bankerDraw() == 0) {
+            if (0 == 0) {
+                System.out.println("스탠드, 카드를 받지 않습니다.");
+            } else {
+                System.out.println("뱅커가 드로우 중입니다...");
+                banker.receiveCard(drawCard());
+            }
+        }
+
+        return gameResult(player, banker);
     }
 
-    static int score(int n) {
-        return n % 10;
-    }
 
     static String getInput() {
         Scanner scanner = new Scanner(System.in);
@@ -57,27 +87,39 @@ public class Main {
     }
 
     static int drawCard() {
-        System.out.printf("결과: ");
+        System.out.print("결과: ");
         int result = getInt();
         switch (result) {
             case 11:
-
-                break;
+                System.out.println("J");
+                return 0;
             case 12:
-
-                break;
+                System.out.println("Q");
+                return 0;
             case 13:
-
-                break;
+                System.out.println("K");
+                return 0;
             default:
-                System.out.println();
+                System.out.println(result);
         }
         return result;
     }
 
     static int getInt() {
         Random random = new Random();
-        return random.nextInt(14, 1);
+        return random.nextInt(13) + 1;
+    }
+
+    static int gameResult(Player player, Player banker) {
+        System.out.println("플레이어의 숫자 합: " + player.getTotalSum());
+        System.out.println("뱅커의 숫자 합: " + banker.getTotalSum());
+
+        if (player.getTotalSum() > banker.getTotalSum()) {
+            return 0;
+        } else if (player.getTotalSum() < banker.getTotalSum()) {
+            return 1;
+        }
+        return 2;
     }
 
     static void throwError(String s) {
