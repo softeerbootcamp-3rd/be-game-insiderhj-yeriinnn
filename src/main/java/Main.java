@@ -61,11 +61,11 @@ public class Main {
                 System.out.println("아이고 파산하셨군요~ 저런... 더이상 게임을 진행할 수 없습니다");
                 break;
             }
-            int moreGame = getUserInput("더 하실건가요? - 1: ㅇㅇ, 2: ㄴㄴ", 1, 2);
+            int moreGame = getUserInput("더 하실건가요? - 1: 네, 2: 아니오", 1, 2);
             if (moreGame == 2) break;
         }
 
-        System.out.println("안녕히 가세욤~");
+        System.out.println("안녕히 가세요~");
     }
 
     private static int getUserInput(String msg, int min, int max) {
